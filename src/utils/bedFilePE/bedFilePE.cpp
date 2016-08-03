@@ -88,29 +88,43 @@ BedLineStatus BedFilePE::GetNextBedPE (BEDPE &bedpe, int &lineNum) {
     Works for BEDPE only.
 */
 void BedFilePE::reportBedPETab(const BEDPE &a) {
+    CHRPOS start1 = a.start1;
+    CHRPOS end1 = a.end1;
+    CHRPOS start2 = a.start2;
+    CHRPOS end2 = a.end2;
+
+    if (a.zeroLength1) {
+        ++start1;
+        --end1;
+    }
+
+    if (a.zeroLength2) {
+        ++start2;
+        --end2;
+    }
 
     if (this->bedType == 6) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2);
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2);
     }
     else if (this->bedType == 7) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str());
     }
     else if (this->bedType == 8) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str());
     }
     else if (this->bedType == 10) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s\t", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s\t", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str(), a.strand1.c_str(), a.strand2.c_str());
     }
     else if (this->bedType > 10) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str(), a.strand1.c_str(), a.strand2.c_str());
         vector<uint16_t>::const_iterator othIt  = a.other_idxs.begin();
         vector<uint16_t>::const_iterator othEnd = a.other_idxs.end();
@@ -130,29 +144,43 @@ void BedFilePE::reportBedPETab(const BEDPE &a) {
     Works for BEDPE only.
 */
 void BedFilePE::reportBedPENewLine(const BEDPE &a) {
+    CHRPOS start1 = a.start1;
+    CHRPOS end1 = a.end1;
+    CHRPOS start2 = a.start2;
+    CHRPOS end2 = a.end2;
+
+    if (a.zeroLength1) {
+        ++start1;
+        --end1;
+    }
+
+    if (a.zeroLength2) {
+        ++start2;
+        --end2;
+    }
 
     if (this->bedType == 6) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\n", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2);
+        printf("%s\t%d\t%d\t%s\t%d\t%d\n", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2);
     }
     else if (this->bedType == 7) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\n", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\n", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str());
     }
     else if (this->bedType == 8) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str());
     }
     else if (this->bedType == 10) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s\n", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s\n", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str(), a.strand1.c_str(), a.strand2.c_str());
     }
     else if (this->bedType > 10) {
-        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", a.chrom1.c_str(), a.start1, a.end1,
-                                            a.chrom2.c_str(), a.start2, a.end2,
+        printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", a.chrom1.c_str(), start1, end1,
+                                            a.chrom2.c_str(), start2, end2,
                                             a.name.c_str(), a.score.c_str(), a.strand1.c_str(), a.strand2.c_str());
         vector<uint16_t>::const_iterator othIt  = a.other_idxs.begin();
         vector<uint16_t>::const_iterator othEnd = a.other_idxs.end();
@@ -206,8 +234,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             bed.chrom2 = lineVector[3];
             bed.start2 = atoi(lineVector[4].c_str());
             bed.end2 = atoi(lineVector[5].c_str());
-
-            return true;
         }
         else if (this->bedType == 7) {
             bed.chrom1 = lineVector[0];
@@ -219,7 +245,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             bed.end2 = atoi(lineVector[5].c_str());
 
             bed.name = lineVector[6];
-            return true;
         }
         else if (this->bedType == 8) {
             bed.chrom1 = lineVector[0];
@@ -232,7 +257,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
 
             bed.name = lineVector[6];
             bed.score = lineVector[7].c_str();
-            return true;
         }
         else if (this->bedType == 10) {
             bed.chrom1 = lineVector[0];
@@ -248,8 +272,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
 
             bed.strand1 = lineVector[8];
             bed.strand2 = lineVector[9];
-
-            return true;
         }
         else if (this->bedType > 10) {
             bed.chrom1 = lineVector[0];
@@ -269,11 +291,22 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             for (unsigned int i = 10; i < lineVector.size(); ++i) {
                 bed.other_idxs.push_back(i);
             }
-            return true;
         }
         else {
             cerr << "Unexpected number of fields: " << lineNum << ".  Verify that your files are TAB-delimited and that your BEDPE file has 6,7,8 or 10 fields.  Exiting..." << endl;
             exit(1);
+        }
+
+        if (bed.start1 == bed.end1) {
+            --bed.start1;
+            ++bed.end1;
+            bed.zeroLength1 = true;
+        }
+        
+        if (bed.start2 == bed.end2) {
+            --bed.start2;
+            ++bed.end2;
+            bed.zeroLength2 = true;
         }
 
         if (bed.start1 > bed.end1) {
@@ -284,6 +317,7 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             cerr << "Error: malformed BEDPE entry at line " << lineNum << ". Start2 was greater than End2. Ignoring it and moving on." << endl;
             return false;
         }
+        return true;
     }
     else if ( (lineNum > 1) && (lineVector.size() == this->bedType)) {
 
@@ -297,8 +331,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             bed.chrom2 = lineVector[3];
             bed.start2 = atoi(lineVector[4].c_str());
             bed.end2 = atoi(lineVector[5].c_str());
-
-            return true;
         }
         else if (this->bedType == 7) {
             bed.chrom1 = lineVector[0];
@@ -310,7 +342,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             bed.end2 = atoi(lineVector[5].c_str());
 
             bed.name = lineVector[6];
-            return true;
         }
         else if (this->bedType == 8) {
             bed.chrom1 = lineVector[0];
@@ -323,7 +354,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
 
             bed.name = lineVector[6];
             bed.score = lineVector[7].c_str();
-            return true;
         }
         else if (this->bedType == 10) {
             bed.chrom1 = lineVector[0];
@@ -339,8 +369,6 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
 
             bed.strand1 = lineVector[8];
             bed.strand2 = lineVector[9];
-
-            return true;
         }
         else if (this->bedType > 10) {
             bed.chrom1 = lineVector[0];
@@ -359,11 +387,22 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             for (unsigned int i = 10; i < lineVector.size(); ++i) {
                 bed.other_idxs.push_back(i);
             }
-            return true;
         }
         else {
             cerr << "Unexpected number of fields: " << lineNum << ".  Verify that your files are TAB-delimited and that your BEDPE file has 6,7,8 or 10 fields.  Exiting..." << endl;
             exit(1);
+        }
+
+        if (bed.start1 == bed.end1) {
+            --bed.start1;
+            ++bed.end1;
+            bed.zeroLength1 = true;
+        }
+        
+        if (bed.start2 == bed.end2) {
+            --bed.start2;
+            ++bed.end2;
+            bed.zeroLength2 = true;
         }
 
         if (bed.start1 > bed.end1) {
@@ -374,6 +413,7 @@ bool BedFilePE::parseBedPELine (BEDPE &bed, const vector<string> &lineVector, co
             cerr << "Error: malformed BED entry at line " << lineNum << ". Start2 was greater than End2. Ignoring it and moving on." << endl;
             return false;
         }
+        return true;
     }
     else if (lineVector.size() == 1) {
         cerr << "Only one BED field detected: " << lineNum << ".  Verify that your files are TAB-delimited.  Exiting..." << endl;
@@ -514,6 +554,7 @@ void BedFilePE::splitBedPEIntoBeds(const BEDPE &bedpeEntry, const int &lineNum, 
     bedEntry1->bed.other_idxs      = bedpeEntry.other_idxs;   // only store the other_idxs in end1 to save memory
     bedEntry1->lineNum             = lineNum;
     bedEntry1->mate                = bedEntry2;               // keep a pointer to end2
+    bedEntry1->bed.zeroLength      = bedpeEntry.zeroLength1;
 
     bedEntry2->bed.chrom           = bedpeEntry.chrom2;
     bedEntry2->bed.start           = bedpeEntry.start2;
@@ -522,6 +563,7 @@ void BedFilePE::splitBedPEIntoBeds(const BEDPE &bedpeEntry, const int &lineNum, 
     bedEntry2->bed.strand          = bedpeEntry.strand2;
     bedEntry2->lineNum             = lineNum;
     bedEntry2->mate                = bedEntry1;               // keep a pointer to end1
+    bedEntry2->bed.zeroLength      = bedpeEntry.zeroLength2;
 }
 
 

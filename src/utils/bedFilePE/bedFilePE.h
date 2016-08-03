@@ -39,6 +39,10 @@ struct BEDPE {
     vector<string> fields;
     // indices of the "other" fields
     vector<uint16_t> other_idxs;
+
+    // whether or not the positions were originally of zero length
+    bool zeroLength1;
+    bool zeroLength2;
 };
 
 
