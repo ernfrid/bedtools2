@@ -74,3 +74,9 @@ echo \
 $BT pairtopair -type notboth -a a.bedpe -b b.bedpe > obs
 check obs exp
 rm obs exp
+
+echo "    pairtopair.t09...\c"
+touch exp
+$BT pairtopair -a a_zl_adjacent.bedpe -b b.bedpe > obs
+check obs exp
+rm obs exp
