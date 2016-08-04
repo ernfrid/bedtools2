@@ -153,12 +153,26 @@ bool PairToPair::FindHitsOnBothEnds(const BEDPE &a, const vector<MATE> &qualityH
         if (m->second.size() >= 2) {
             bothFound = true;
             MATE b1 = m->second[0];
+            CHRPOS start1 = b1.bed.start;
+            CHRPOS end1 = b1.bed.end;
+
+            if (b1.bed.zeroLength) {
+                ++start1;
+                --end1;
+            }
             MATE b2 = m->second[1];
+            CHRPOS start2 = b2.bed.start;
+            CHRPOS end2 = b2.bed.end;
+
+            if (b2.bed.zeroLength) {
+                ++start2;
+                --end2;
+            }
 
             if (_searchType == "both") {
                 _bedA->reportBedPETab(a);
-                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), b1.bed.start, b1.bed.end,
-                                                                   b2.bed.chrom.c_str(), b2.bed.start, b2.bed.end,
+                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), start1, end1,
+                                                                   b2.bed.chrom.c_str(), start2, end2,
                                                                    b1.bed.name.c_str(), b1.bed.score.c_str(),
                                                                    b1.bed.strand.c_str(), b2.bed.strand.c_str());
                 for (size_t i = 0; i < b1.bed.other_idxs.size(); ++i)
@@ -185,14 +199,29 @@ void PairToPair::FindHitsOnEitherEnd(const BEDPE &a, const vector<MATE> &quality
 
     for (map<unsigned int, vector<MATE>, less<unsigned int> >::iterator m = hitsMap.begin(); m != hitsMap.end(); ++m) {
         if (m->second.size() >= 1) {
+            MATE b1 = m->second[0];
+            CHRPOS start1 = b1.bed.start;
+            CHRPOS end1 = b1.bed.end;
+
+            if (b1.bed.zeroLength) {
+                ++start1;
+                --end1;
+            }
 
             if ((m->second.size()) == 2) {
-                MATE b1 = m->second[0];
                 MATE b2 = m->second[1];
 
+                CHRPOS start2 = b2.bed.start;
+                CHRPOS end2 = b2.bed.end;
+
+                if (b2.bed.zeroLength) {
+                    ++start2;
+                    --end2;
+                }
+
                 _bedA->reportBedPETab(a);
-                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), b1.bed.start, b1.bed.end,
-                                                                   b2.bed.chrom.c_str(), b2.bed.start, b2.bed.end,
+                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), start1, end1,
+                                                                   b2.bed.chrom.c_str(), start2, end2,
                                                                    b1.bed.name.c_str(), b1.bed.score.c_str(),
                                                                    b1.bed.strand.c_str(), b2.bed.strand.c_str());
                 for (size_t i = 0; i < b1.bed.other_idxs.size(); ++i)
@@ -200,11 +229,16 @@ void PairToPair::FindHitsOnEitherEnd(const BEDPE &a, const vector<MATE> &quality
                 printf("\n");
             }
             else {
-                MATE b1 = m->second[0];
+                CHRPOS start2 = b1.mate->bed.start;
+                CHRPOS end2 = b1.mate->bed.end;
 
+                if (b1.mate->bed.zeroLength) {
+                    ++start2;
+                    --end2;
+                }
                 _bedA->reportBedPETab(a);
-                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), b1.bed.start, b1.bed.end,
-                                                                   b1.mate->bed.chrom.c_str(), b1.mate->bed.start, b1.mate->bed.end,
+                printf("%s\t%d\t%d\t%s\t%d\t%d\t%s\t%s\t%s\t%s", b1.bed.chrom.c_str(), start1, end1,
+                                                                   b1.mate->bed.chrom.c_str(), start2, end2,
                                                                    b1.bed.name.c_str(), b1.bed.score.c_str(),
                                                                    b1.bed.strand.c_str(), b1.mate->bed.strand.c_str());
                 for (size_t i = 0; i < b1.bed.other_idxs.size(); ++i)
