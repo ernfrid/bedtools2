@@ -43,6 +43,23 @@ struct BEDPE {
     // whether or not the positions were originally of zero length
     bool zeroLength1;
     bool zeroLength2;
+
+    BEDPE() 
+    : chrom1(""),
+      start1(0),
+      end1(0),
+      chrom2(""),
+      start2(0),
+      end2(0),
+      name(""),
+      score(""),
+      strand1(""),
+      strand2(""),
+      fields(),
+      other_idxs(),
+      zeroLength1(false),
+      zeroLength2(false)
+    {}
 };
 
 
